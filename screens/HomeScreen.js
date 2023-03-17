@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import GlobalStyles from '../GlobalStyles';
 import {HeroImage} from '../assets/index';
-import Data from '../localdata';
+
 
 /*style={GlobalStyles.droidSafeArea}*/
 const HomeScreen = () => {

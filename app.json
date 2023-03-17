@@ -4,7 +4,7 @@
     "slug": "travelapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/restaurants.png",
+    "icon": "./assets/food.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/restaurants.png",

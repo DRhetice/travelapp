@@ -18,6 +18,10 @@ import { Attractions, Avatar, Hotels, NotFound, Restaurants } from "../assets";
 import MenuContainer from "../components/MenuContainer";
 import ItemsCardContainer from "../components/ItemsCardContainer";
 import { getPlaceData } from "../api";
+import { TextInput } from "react-native";
+import { Button } from "react-native";
+import data from "../data";
+import VilleCardContainer from "../components/VilleCardContainer";
 
 const Discover = () => {
   const navigation = useNavigation();
@@ -25,6 +29,19 @@ const Discover = () => {
   const [type, setType] = useState("restaurants");
   const [isLoading, setIsLoading] = useState(false);
   const [mainData, setMainData] = useState([]);
+  const [bl_lat, setBl_lat] = useState(null);
+  const [bl_lng, setBl_lng] = useState(null);
+  const [tr_lat, setTr_lat] = useState(null);
+  const [tr_lng, setTr_lng] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [seachResults, setSearchResults] = useState([]);
+
+  const handleSearch = () => {
+    const results = data.filter(
+      (item) => item.nom.toLowerCase() === searchTerm.toLowerCase()
+    );
+    setSearchResults(results);
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,16 +51,14 @@ const Discover = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getPlaceData().then((data) => {
+    getPlaceData(bl_lat, bl_lng, tr_lat, tr_lng, type).then((data) => {
       setMainData(data);
 
       setInterval(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 2000);
     });
-  }, []);
- 
-
+  }, [bl_lat, bl_lng, tr_lat, tr_lng, type]);
   return (
     <SafeAreaView className="flex-1 relative">
       <View className="flex-row items-center justify-between px-6 pt-3">
@@ -59,21 +74,53 @@ const Discover = () => {
         </View>
       </View>
 
-      <View className="flex-row items-center bg-white mx-4 rounded-xl py-1 px-4 shadow-lg ">
-        <GooglePlacesAutocomplete
+      <View className="flex-row items-center bg-white mx-4 rounded-xl py-1 px-4 shadow-lg justify-between space-x-2 ">
+        {/*<GooglePlacesAutocomplete
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           placeholder="Search"
           fetchdetail={true}
           onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
             console.log(data, details);
+            setBl_lat(details?.geometry?.viewport?.southwest?.lat);
+            setBl_lng(details?.geometry?.viewport?.southwest?.lng);
+            setTr_lat(details?.geometry?.viewport?.northeast?.lat);
+            setTr_lng(details?.geometry?.viewport?.northeast?.lng);
           }}
           query={{
             key: "AIzaSyDWpuVw2apN-XgX3gmrzsHrZgr1AG4sCxQ",
             language: "en",
           }}
+        />*/}
+        <TextInput
+          className=" flex-1 rounded-md"
+          placeholder="Search"
+          value={searchTerm}
+          onChangeText={(text) => setSearchTerm(text)}
         />
+        <TouchableOpacity onPress={handleSearch}>
+          <Text className="font-bold">Rechercher</Text>
+        </TouchableOpacity>
       </View>
+      <View className="flex-row items-center  mx-4 rounded-xl py-2 px-4 shadow-lg justify-center space-y-8">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {data.map((ville) => (
+            <VilleCardContainer
+              key={ville.nom}
+              nom={ville.nom}
+              bl_lat={ville.bl_lat}
+              bl_lng={ville.bl_lng}
+              tr_lat={ville.tr_lat}
+              tr_lng={ville.bl_lng}
+              setBl_lat={setBl_lat}
+              setBl_lng={setBl_lng}
+              setTr_lat={setTr_lat}
+              setTr_lng={setTr_lng}
+            />
+          ))}
+        </ScrollView>
+      </View>
+
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#0B646B" />
