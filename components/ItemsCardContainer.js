@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const ItemsCardContainer = ({ imageSrc, title, location, data }) => {
   const navigation = useNavigation();
 
-  return (
+  return ( 
     <TouchableOpacity
       onPress={() => navigation.navigate("ItemScreen", { param: data })}
       className="rounded-md border border-gray-300 space-y-2 px-3 py-2
