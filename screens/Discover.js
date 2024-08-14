@@ -102,7 +102,8 @@ const Discover = () => {
           <Text className="font-bold">Rechercher</Text>
         </TouchableOpacity>
       </View>
-      <View className="flex-row items-center  mx-4 rounded-xl py-2 px-4 shadow-lg justify-center space-y-8">
+
+      {/* <View className="flex-row items-center  mx-4 rounded-xl py-2 px-4 shadow-lg justify-center space-y-8">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {data.map((ville) => (
             <VilleCardContainer
@@ -119,7 +120,7 @@ const Discover = () => {
             />
           ))}
         </ScrollView>
-      </View>
+      </View> */}
 
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
@@ -127,7 +128,7 @@ const Discover = () => {
         </View>
       ) : (
         <ScrollView>
-          <View className="flex-row items-center justify-between x-4 mt-8">
+          <View className="flex-row items-center justify-between px-4 mt-8">
             <MenuContainer
               key={"hotel"}
               title="Hotels"

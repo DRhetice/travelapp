@@ -34,8 +34,7 @@ const HomeScreen = () => {
         <Text className="text-[#3c6072] text-[42px]">Enjoy the trip with</Text>
         <Text className="text-[#00bcc9] text-[38px] font-bold" >Good Moment</Text>
         <Text className="text-[#3c6072] text-base">
-          lii summum decus in carruchis solito altioribus et ambitioso vestium cultu ponentes sudant sub ponderibus
-          lacernarum, quas in collis insertas cingulis
+        Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page.
         </Text>
       </View>
       {/* circle section*/}
